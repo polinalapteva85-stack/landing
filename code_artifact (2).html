@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Pilot // Хакни рутину</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050811; color: #E2E8F0; }
+        .font-tech { font-family: 'Space Grotesk', sans-serif; }
+        .neon-glow { text-shadow: 0 0 10px rgba(197, 160, 89, 0.3); }
+        .border-neon { border-color: rgba(197, 160, 89, 0.2); }
+        .border-neon:hover { border-color: rgba(197, 160, 89, 1); box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#C5A059] selection:text-black">
+
+    <header class="min-h-screen flex items-center px-6 relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#1E1B18] via-[#050811] to-[#050811]">
+        <div class="absolute top-4 left-6 font-tech text-xs tracking-widest text-gray-600">// SYSTEM_STATUS: READY // VERSION_2.0</div>
+        
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 py-12">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#C5A059]/10 border border-[#C5A059]/30 rounded-full text-xs text-[#C5A059] font-tech uppercase tracking-wider">
+                    <span class="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse"></span> Один клик вместо тысячи подписок
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold font-tech tracking-tight leading-none text-white">
+                    Зачем им платить <br><span class="text-[#C5A059] neon-glow">КАЖДЫЙ МЕСЯЦ?</span>
+                </h1>
+                
+                <p class="text-xl text-gray-400 font-light leading-relaxed">
+                    Пока агрегаторы выкачивают из тебя деньги за ежемесячную аренду нейросетей, я отдаю тебе <span class="text-white font-semibold">ключи от твоего софта</span>. Твой контент, твои API-ключи, твоя полная независимость.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4 font-tech">
+                    <a href="#challenge" class="px-6 md:px-8 py-4 md:py-5 bg-[#C5A059] text-black font-bold text-center uppercase tracking-widest hover:bg-white transition-all duration-300 rounded shadow-lg shadow-[#C5A059]/10 whitespace-nowrap">
+                        [ БРОСИТЬ ВЫЗОВ ]
+                    </a>
+                    <a href="#calculator" class="px-6 md:px-8 py-4 md:py-5 border border-gray-800 text-gray-400 font-bold text-center uppercase tracking-widest hover:text-white hover:border-gray-600 transition-all duration-300 rounded whitespace-nowrap">
+                        Посчитать убытки
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="aspect-[4/5] overflow-hidden rounded-2xl border-2 border-[#C5A059]/30 shadow-2xl bg-gray-900 flex items-center justify-center">
+                    <img src="https://drive.google.com/thumbnail?id=1Awa9DaVtFtR8YBI2zhm9zVYWxXjp_xMw&sz=s2000" 
+                         alt="Ваше фото" 
+                         class="w-full h-full object-cover"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x750/1A2230/C5A059?text=Фото+загружается';">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- БЛОК: Обо мне / Философия -->
+    <section class="py-24 px-6 border-t border-gray-900 bg-[#050811]">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="text-xs uppercase tracking-widest text-[#C5A059] font-tech">// КТО Я И ПОЧЕМУ МНЕ ДОВЕРЯЮТ</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-tech text-white">Привет, я — твой проводник в мир <span class="text-[#C5A059]">автономии</span></h2>
+                <p class="text-gray-400 leading-relaxed text-base md:text-lg">
+                    Я проектирую и создаю софт, который навсегда убирает рутину из твоего бизнеса. Мой бэкграунд — это разработка сложных систем (интеграция CRM, умные боты для Telegram/VK, автоматизация баз данных и парсеры), которые теперь упакованы в простые решения «в один клик».
+                </p>
+                <p class="text-gray-400 leading-relaxed text-base md:text-lg">
+                    Я глубоко убеждена, что предприниматель должен заниматься развитием своего дела, а не монотонным копированием информации между окнами. Будь то связка AmoCRM с Telegram или автогенерация контента для соцсетей — моя цель дать тебе полную независимость.
+                </p>
+            </div>
+            <div class="p-8 bg-[#0D1322] border border-gray-800 rounded-2xl space-y-4">
+                <h3 class="text-lg font-bold text-white font-tech uppercase tracking-wider text-[#C5A059]">// МОИ ПРИНЦИПЫ:</h3>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <span class="text-[#C5A059] font-bold font-tech">01 /</span> 
+                        <span><strong>Никаких скрытых платежей.</strong> Ты платишь за разработку софта один раз. Дальше ты платишь только нейросетям напрямую по себестоимости API-ключей.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-[#C5A059] font-bold font-tech">02 /</span> 
+                        <span><strong>Полная мультиплатформенность.</strong> Telegram, VK, WhatsApp, CRM-системы, Google-таблицы, парсеры сайтов — я автоматизирую работу на любых площадках.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-[#C5A059] font-bold font-tech">03 /</span> 
+                        <span><strong>Полная безопасность.</strong> Твой софт — твоя личная собственность. Все токены, данные и доступы хранятся только в твоей экосистеме.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАСЧЕТ УБЫТКОВ -->
+    <section id="calculator" class="py-32 px-6 border-t border-gray-900 bg-[#080C16]">
+        <div class="max-w-4xl mx-auto text-center space-y-12">
+            <div class="space-y-4">
+                <h2 class="text-3xl md:text-5xl font-bold font-tech text-white">Давай включим <span class="text-[#C5A059]">математику</span></h2>
+                <p class="text-gray-400">Введи, сколько ты сейчас тратишь на SMM-сервисы, отложенный постинг и копирайтеров в месяц:</p>
+            </div>
+
+            <div class="p-8 bg-[#0D1322] border border-gray-800 rounded-2xl max-w-md mx-auto space-y-6">
+                <div class="space-y-2 text-left">
+                    <label class="text-xs uppercase text-gray-500 font-tech">Траты в месяц (руб):</label>
+                    <input type="number" id="monthlySpend" value="5000" class="w-full p-4 bg-[#050811] border border-gray-700 text-white focus:border-[#C5A059] outline-none transition rounded font-tech text-xl">
+                </div>
+                <button onclick="calculateLoss()" class="w-full py-3 bg-gray-800 hover:bg-[#C5A059] hover:text-black text-white font-tech uppercase text-xs tracking-widest transition-all rounded">
+                    Рассчитать переплату
+                </button>
+                <div class="pt-4 border-t border-gray-800 text-left space-y-4">
+                    <div>
+                        <p class="text-sm text-gray-400">За 1 год ты просто так даришь чужим сервисам:</p>
+                        <p class="text-3xl font-bold text-red-400 font-tech mt-1"><span id="yearlyLoss">60 000</span> ₽</p>
+                    </div>
+                    <a href="#challenge" class="inline-block w-full text-center py-2.5 bg-[#C5A059]/10 border border-[#C5A059]/40 text-[#C5A059] text-xs font-tech uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-all rounded">
+                        Вернуть эти деньги себе ↗
+                    </a>
+                    <p class="text-xs text-gray-500 mt-2">* Мой софт пишется один раз под твои ключи. Дальше ты платишь только нейросети напрямую — это копейки за реальные символы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КЕЙС -->
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-6">
+                <div class="font-tech text-xs text-[#C5A059] tracking-widest">// ПРИМЕР РЕАЛИЗОВАННОГО КЕЙСА</div>
+                <h2 class="text-4xl font-bold font-tech text-white">Один клик в Нейро-Пилоте — <br>и пост уже на твоей площадке</h2>
+                <p class="text-gray-400 leading-relaxed">
+                    Нейро-Пилот — это лишь один из примеров того, как я убираю рутину. Мой софт умеет автоматически генерировать контент, подбирать графику и сразу отправлять её в твои каналы (VK, Telegram). Никакого копирования руками — всё работает по одной кнопке «Магия».
+                </p>
+                <div class="p-4 bg-[#0D1322] border-l-2 border-[#C5A059] text-sm text-gray-400 italic">
+                    "Этот софт пишется под ТВОИ конкретные задачи: от автопостинга до парсеров цен и умных Telegram-ботов."
+                </div>
+            </div>
+            
+            <div class="relative border border-gray-800 rounded-2xl overflow-hidden bg-black aspect-video flex flex-col justify-between group shadow-2xl">
+                <iframe src="https://vk.com/video_ext.php?oid=-180882670&id=456239159&hd=2&autoplay=0" 
+                        class="w-full h-full absolute inset-0 z-10" 
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" 
+                        frameborder="0" 
+                        allowfullscreen>
+                </iframe>
+                <a href="https://vk.com/clip-180882670_456239159" target="_blank" class="absolute bottom-4 right-4 z-20 px-3 py-1.5 bg-black/80 hover:bg-[#C5A059] hover:text-black text-gray-400 text-xs font-tech rounded border border-gray-800 transition-all">
+                    [ ОТКРЫТЬ В ВК ↗ ]
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- СХЕМА РАБОТЫ -->
+    <section class="py-32 px-6 border-t border-gray-900 bg-[#080C16]">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <div class="text-center space-y-4">
+                <span class="text-xs uppercase tracking-widest text-[#C5A059] font-tech">// ПРОЗРАЧНАЯ СХЕМА</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-tech text-white">Как мы уберем <span class="text-[#C5A059]">твой ручной труд</span></h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-[#0D1322] border border-gray-800 rounded-2xl space-y-4">
+                    <div class="text-[#C5A059] font-tech text-2xl font-bold">01 / АНАЛИЗ</div>
+                    <h3 class="text-lg font-bold text-white">Разбор завалов</h3>
+                    <p class="text-sm text-gray-400">Мы созваниваемся, анализируем твои бизнес-процессы (SMM, CRM, таблицы, базы данных) и находим рутину, которую можно делегировать роботам.</p>
+                </div>
+                <div class="p-8 bg-[#0D1322] border border-gray-800 rounded-2xl space-y-4">
+                    <div class="text-[#C5A059] font-tech text-2xl font-bold">02 / РАЗРАБОТКА</div>
+                    <h3 class="text-lg font-bold text-white">Сборка софта</h3>
+                    <p class="text-sm text-gray-400">Я пишу кастомные сценарии и внедряю Нейро-Пилота под твои задачи. Настраиваем генерацию под твой tone of voice.</p>
+                </div>
+                <div class="p-8 bg-[#0D1322] border border-gray-800 rounded-2xl space-y-4">
+                    <div class="text-[#C5A059] font-tech text-2xl font-bold">03 / СВОБОДА</div>
+                    <h3 class="text-lg font-bold text-white">Передача ключей</h3>
+                    <p class="text-sm text-gray-400">Ты получаешь готовое приложение в личную собственность. Платишь только нейросетям напрямую за копеечные символы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="py-32 px-6 border-t border-gray-900 bg-[#050811]">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <div class="text-center">
+                <span class="text-xs uppercase tracking-widest text-[#C5A059] font-tech">// РЕАЛЬНЫЕ КЕЙСЫ</span>
+                <h2 class="text-3xl font-bold text-white mt-2 font-tech">Что говорят клиенты</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-xl flex flex-col justify-between">
+                    <p class="text-gray-400 mb-6 font-light">"Автоматизация просто космос! С Нейро-Пилотом высвободила себе 15 часов в неделю на рутине ВК. Решение работает без единого сбоя!"</p>
+                    <p class="font-bold text-[#C5A059] font-tech">Грязнова Мария</p>
+                </div>
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-xl flex flex-col justify-between">
+                    <p class="text-gray-400 mb-6 font-light">"Раньше тратила кучу денег на сторонние сервисы и копирайтеров. Заказала индивидуальную разработку у нее — окупила за первый месяц."</p>
+                    <p class="font-bold text-[#C5A059] font-tech">Скороходова Ангелина</p>
+                </div>
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-xl flex flex-col justify-between">
+                    <p class="text-gray-400 mb-6 font-light">"Один клик — и пост со сгенерированной картинкой на стене. Наконец-то решение для ВК, которое реально работает для людей."</p>
+                    <p class="font-bold text-[#C5A059] font-tech">Кошечкина Света</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-32 px-6 border-t border-gray-900 bg-[#080C16]">
+        <div class="max-w-4xl mx-auto space-y-16">
+            <div class="text-center space-y-4">
+                <span class="text-xs uppercase tracking-widest text-[#C5A059] font-tech">// СНИМАЕМ СТРАХИ</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-tech text-white">Вопросы и ответы</h2>
+            </div>
+            <div class="space-y-6 max-w-3xl mx-auto text-left">
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-2xl">
+                    <h3 class="font-bold text-[#C5A059] mb-2 font-tech">Что такое API-ключи и за что я буду платить?</h3>
+                    <p class="text-sm text-gray-400">Это мост к серверам нейросетей напрямую. Вместо того чтобы переплачивать посредникам 5000+ рублей ежемесячно, ты платишь только за то, что реально потрачено. Один полноценный пост с картинкой обойдется тебе в 1-2 рубля.</p>
+                </div>
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-2xl">
+                    <h3 class="font-bold text-[#C5A059] mb-2 font-tech">Сложно ли этим пользоваться?</h3>
+                    <p class="text-sm text-gray-400">Я проектирую софт по философии «одной кнопки». Вся сложная инженерия скрыта под капотом. Тебе нужно только ввести тему или направление — робот сделает всё остальное за секунды.</p>
+                </div>
+                <div class="p-6 bg-[#0D1322] border border-gray-800 rounded-2xl">
+                    <h3 class="font-bold text-[#C5A059] mb-2 font-tech">Безопасно ли это для моих аккаунтов (ВК, Telegram, CRM)?</h3>
+                    <p class="text-sm text-gray-400">Абсолютно. Вся автоматизация настраивается лично под тебя и работает исключительно через официальные безопасные протоколы (API) по твоим личным токенам доступа. Данные хранятся только у тебя.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
+    <section id="challenge" class="py-32 px-6 bg-gradient-to-b from-[#050811] to-[#0D1322] border-t border-gray-900">
+        <div class="max-w-3xl mx-auto text-center space-y-12">
+            <div class="space-y-4">
+                <span class="text-xs uppercase tracking-widest text-[#C5A059] font-tech">// ИНДИВИДУАЛЬНЫЙ ХАКИНГ РУТИНЫ</span>
+                <h2 class="text-3xl md:text-6xl font-bold font-tech text-white">Есть идея, но думаешь, что <span class="underline decoration-[#C5A059] decoration-wavy">это невозможно?</span></h2>
+                <p class="text-gray-400 text-lg">
+                    Опиши мне свою самую бесячую задачу, на которую ты тратишь больше часа в день. Сбор данных, генерация специфических отчетов, автопостинг по хитрым правилам. Напиши. Если это реально автоматизировать — мы созвонимся и сделаем софт, который заберет этот геморрой на себя.
+                </p>
+            </div>
+
+            <form id="challengeForm" class="space-y-4 text-left max-w-xl mx-auto font-tech">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" id="leadName" placeholder="Твое имя" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white focus:border-[#C5A059] outline-none transition rounded">
+                    <input type="email" id="leadEmail" placeholder="Email для связи" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white focus:border-[#C5A059] outline-none transition rounded">
+                </div>
+                <textarea id="leadMessage" rows="4" placeholder="Опиши свой главный головняк или идею, которую нужно закодить..." required class="w-full p-4 bg-[#050811] border border-gray-800 text-white focus:border-[#C5A059] outline-none transition rounded"></textarea>
+                <button type="submit" id="submitBtn" class="w-full py-5 bg-[#C5A059] hover:bg-white text-black font-bold uppercase tracking-widest transition-all duration-300 rounded">
+                    [ ОТПРАВИТЬ ВЫЗОВ РАЗРАБОТЧИКУ ]
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 text-sm font-tech border-t border-gray-900">
+        // NEURO-PILOT // NO MORE SUBSCRIPTIONS // 2026
+    </footer>
+
+    <!-- Кастомное модальное окно подтверждения заявки -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+        <div class="bg-[#0D1322] border border-[#C5A059] p-8 max-w-md w-full rounded-2xl text-center space-y-6 shadow-2xl shadow-[#C5A059]/10 transform scale-95 transition-transform duration-300" id="modalCard">
+            <div class="w-16 h-16 bg-[#C5A059]/10 border border-[#C5A059]/40 rounded-full flex items-center justify-center mx-auto">
+                <span class="text-[#C5A059] text-2xl font-tech">✓</span>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-2xl font-tech font-bold text-white uppercase tracking-wider">Вызов принят!</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Данные успешно сохранены в базе. Я уже изучаю твою задачу и скоро напишу тебе на почту для разбора деталей.
+                </p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-3 bg-[#C5A059] hover:bg-white text-black font-tech font-bold uppercase tracking-widest transition rounded text-xs">
+                [ Закрыть окно ]
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const supabaseClient = supabase.createClient(
+            'https://tyummzgrdfxpfzvdjwua.supabase.co', 
+            'sb_publishable_EevF-Aew_WxPDb_zEXBtwQ_PkGLWx8m'
+        );
+
+        // Интеграция с ВКонтакте для мгновенных уведомлений
+        const VK_ACCESS_TOKEN = 'vk1.a.6-RJgvW18rizqhUIVVkEoDGTrQsALF1Xl6WhCkmOwoxLBs-0QnLTttbavj5FGmshrCRRH33DrEw5FUwTlvicCq3Qt9PDCt4_Ey0e45BMQJbxAHD5MSG6hi2o_aF2_5WAMU-lYWDRpyg8zlSGDFeWP7F_6u0mybfkz0UV8iskMhqraoCbRsEXlruJsK0XGi8hdAJWpwxaNcY9M3S-KU-wKw';
+        const VK_USER_ID = '180882670';
+
+        function calculateLoss() {
+            const spend = document.getElementById('monthlySpend').value;
+            const loss = spend * 12;
+            document.getElementById('yearlyLoss').innerText = loss.toLocaleString('ru-RU');
+        }
+
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            const card = document.getElementById('modalCard');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            const card = document.getElementById('modalCard');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Функция отправки сообщений во ВКонтакте через JSONP для обхода CORS
+        function sendVkMessage(userId, token, message) {
+            const randomId = Math.floor(Math.random() * 2000000000);
+            const url = `https://api.vk.com/method/messages.send?user_id=${userId}&message=${encodeURIComponent(message)}&random_id=${randomId}&access_token=${token}&v=5.131&callback=vkCallback`;
+            
+            window.vkCallback = function(response) {
+                console.log('VK Notification Response:', response);
+            };
+
+            const script = document.createElement('script');
+            script.src = url;
+            document.head.appendChild(script);
+            setTimeout(() => script.remove(), 4000);
+        }
+
+        document.getElementById('challengeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            btn.innerText = 'ОТПРАВКА...';
+            btn.disabled = true;
+
+            const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
+            const message = document.getElementById('leadMessage').value;
+
+            try {
+                // 1. Сохранение лида в базу данных Supabase
+                const { error } = await supabaseClient.from('leads').insert([{ 
+                    name: name, 
+                    contact: email, 
+                    message: message 
+                }]);
+
+                if (error) throw error;
+
+                // 2. Отправка мгновенного уведомления во ВКонтакте
+                if (VK_ACCESS_TOKEN && VK_USER_ID) {
+                    const textMessage = `🔔 НОВАЯ ЗАЯВКА НА ЛЕНДИНГЕ!\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📝 Задача: ${message}`;
+                    sendVkMessage(VK_USER_ID, VK_ACCESS_TOKEN, textMessage);
+                }
+
+                showSuccessModal();
+                document.getElementById('challengeForm').reset();
+            } catch (err) {
+                console.error(err);
+                const errorSpan = document.createElement('p');
+                errorSpan.className = 'text-red-400 text-xs mt-2 text-center font-tech';
+                errorSpan.innerText = 'Произошла ошибка при сохранении заявки. Пожалуйста, попробуй еще раз.';
+                document.getElementById('challengeForm').appendChild(errorSpan);
+                setTimeout(() => errorSpan.remove(), 5000);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
