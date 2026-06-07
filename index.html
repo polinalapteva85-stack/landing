@@ -165,17 +165,37 @@
 
     <script>
         const supabaseClient = supabase.createClient('https://tyummzgrdfxpfzvdjwua.supabase.co', 'sb_publishable_EevF-Aew_WxPDb_zEXBtwQ_PkGLWx8m');
+        
         document.getElementById('challengeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.innerText = 'ОТПРАВКА...';
+            
             const name = document.getElementById('leadName').value;
             const email = document.getElementById('leadEmail').value;
             const message = document.getElementById('leadMessage').value;
-            await supabaseClient.from('leads').insert([{ name, contact: email, message }]);
-            alert('Заявка принята!');
-            document.getElementById('challengeForm').reset();
-            btn.innerText = '[ Отправить заявку ]';
+
+            try {
+                // 1. Сохраняем в Supabase
+                await supabaseClient.from('leads').insert([{ name, contact: email, message }]);
+                
+                // 2. Отправка в ВК (через ваш webhook-адрес)
+                // Замените URL на ваш рабочий адрес, который настроен на пересылку в ВК
+                const vkWebhookUrl = 'https://ваш-сервис-автоматизации.com/webhook-вк'; 
+                await fetch(vkWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message, source: 'Neuro-Pilot Landing' })
+                });
+
+                alert('Заявка принята и отправлена в ВК!');
+                document.getElementById('challengeForm').reset();
+            } catch (err) {
+                console.error(err);
+                alert('Заявка сохранена, но возникла ошибка при отправке в ВК.');
+            } finally {
+                btn.innerText = '[ Отправить заявку ]';
+            }
         });
     </script>
 </body>
