@@ -47,17 +47,21 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО (ГАРАНТИРОВАННЫЙ ПЕРЕХОД) -->
+    <!-- ЭКРАН 3: ВИДЕО -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
         <div class="max-w-xl mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Как это работает?</h2>
-            
-            <!-- Метод чистого редиректа через JS для 100% совместимости -->
-            <button onclick="window.location.href='https://vk.com/video-180882670_456239159'" 
-                    class="block w-full py-8 bg-[#C5A059] text-black font-black text-2xl rounded-2xl shadow-[0_0_30px_rgba(197,160,89,0.3)] hover:bg-white transition-all transform hover:scale-[1.02]">
-                ▶ СМОТРЕТЬ ВИДЕО В VK
-            </button>
-            <p class="text-gray-500 mt-4 text-sm">Кнопка откроет видео в вашем браузере или приложении</p>
+            <a href="https://vk.com/video-180882670_456239159" target="_blank" class="block group relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-800 hover:border-[#C5A059] transition-all">
+                <div class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" class="w-full h-full object-cover opacity-50" alt="Видео">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 bg-[#C5A059] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </a>
+            <p class="text-gray-500 mt-4 text-xs">Нажмите на область видео, чтобы открыть его в VK</p>
         </div>
     </section>
 
@@ -114,16 +118,10 @@
     <section id="challenge" class="py-16 px-4 md:px-6 bg-[#080C16]">
         <div class="max-w-lg mx-auto space-y-8">
             <h2 class="text-2xl md:text-3xl font-bold font-tech text-white text-center">Автоматизируем задачи</h2>
-            
-            <div class="bg-[#0D1322] p-5 rounded-xl border border-[#C5A059]/30 text-center">
-                <h3 class="text-lg font-bold text-[#C5A059] mb-2">Первая консультация бесплатно</h3>
-                <p class="text-sm text-gray-400">Разберём процессы и посмотрим, что можно автоматизировать уже сейчас.</p>
-            </div>
-
             <form id="challengeForm" class="space-y-4">
-                <input type="text" id="leadName" placeholder="Имя" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
-                <input type="email" id="leadEmail" placeholder="Email" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
-                <textarea id="leadMessage" placeholder="Кратко о задачах" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded h-32 focus:border-[#C5A059] outline-none"></textarea>
+                <input type="text" id="leadName" placeholder="Ваше имя" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
+                <input type="email" id="leadEmail" placeholder="Ваш Email" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
+                <textarea id="leadMessage" placeholder="Кратко опишите задачу" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded h-32 focus:border-[#C5A059] outline-none"></textarea>
                 <button type="submit" id="submitBtn" class="w-full py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest rounded transition-all hover:bg-white">[ Отправить ]</button>
             </form>
         </div>
@@ -135,16 +133,13 @@
         const supabaseClient = supabase.createClient('https://tyummzgrdfxpfzvdjwua.supabase.co', 'sb_publishable_EevF-Aew_WxPDb_zEXBtwQ_PkGLWx8m');
         const TG_TOKEN = '8552287631:AAHuhBzJGhzlIazU1dwukfDG9NsH3xl2ej8'; 
         const TG_CHAT_ID = '8123396062'; 
-
         document.getElementById('challengeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerText = 'ОТПРАВКА...';
-            
+            btn.innerText = 'ОТПРАВЛЯЮ...';
             const name = document.getElementById('leadName').value;
             const email = document.getElementById('leadEmail').value;
             const msg = document.getElementById('leadMessage').value;
-            
             try {
                 await supabaseClient.from('leads').insert([{ name, contact: email, message: msg }]);
                 await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
@@ -152,11 +147,10 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ chat_id: TG_CHAT_ID, text: `📩 Заявка: ${name}\nEmail: ${email}\nЗадача: ${msg}` })
                 });
-                alert('Заявка успешно отправлена!');
+                alert('Спасибо! Ваша заявка принята.');
                 document.getElementById('challengeForm').reset();
             } catch (err) {
-                console.error(err);
-                alert('Ошибка отправки.');
+                alert('Произошла ошибка, пожалуйста, попробуйте еще раз.');
             } finally {
                 btn.innerText = '[ Отправить ]';
             }
