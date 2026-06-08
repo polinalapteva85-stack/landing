@@ -47,16 +47,23 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО (Ультра-стабильный вариант) -->
+    <!-- ЭКРАН 3: ВИДЕО (Визуальный плеер) -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-2xl font-tech text-white mb-6">Нейро-Пилот в действии</h2>
-            <div class="w-full max-w-xl mx-auto">
-                <a href="https://vk.com/video-180882670_456239159" target="_blank" class="block w-full py-6 bg-[#C5A059] text-black font-bold text-lg rounded-xl shadow-lg hover:bg-white transition-all">
-                    ▶ СМОТРЕТЬ ВИДЕО В VK
-                </a>
-                <p class="text-gray-500 text-sm mt-4">Нажмите кнопку, чтобы видео открылось в приложении или браузере</p>
-            </div>
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl font-tech text-white mb-8">Нейро-Пилот в действии</h2>
+            
+            <a href="https://vk.com/video-180882670_456239159" target="_blank" rel="noopener" class="block relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 hover:border-[#C5A059] transition-all group">
+                <!-- Заглушка под видео -->
+                <div class="absolute inset-0 bg-[url('https://vk.com/images/video_placeholder.png')] bg-cover bg-center opacity-40"></div>
+                <!-- Кнопка Play -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="w-20 h-20 bg-[#C5A059]/90 rounded-full flex items-center justify-center shadow-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <p class="text-white font-bold text-lg px-4 py-2 bg-black/60 rounded backdrop-blur-sm">Смотреть в VK</p>
+                </div>
+            </a>
+            <p class="text-gray-500 text-sm mt-6">Нажмите на картинку, чтобы открыть видео в приложении VK или браузере</p>
         </div>
     </section>
 
