@@ -51,7 +51,6 @@
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
         <div class="max-w-md mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Нейро-Пилот в действии</h2>
-            
             <a href="https://vk.com/wall-180882670_1200" target="_blank" rel="noopener noreferrer"
                class="block w-full py-8 bg-[#C5A059] text-black font-black text-xl rounded-2xl shadow-[0_0_30px_rgba(197,160,89,0.2)] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all text-center">
                 ▶ СМОТРЕТЬ В VK
@@ -128,25 +127,37 @@
         const supabaseClient = supabase.createClient('https://tyummzgrdfxpfzvdjwua.supabase.co', 'sb_publishable_EevF-Aew_WxPDb_zEXBtwQ_PkGLWx8m');
         const TG_TOKEN = '8552287631:AAHuhBzJGhzlIazU1dwukfDG9NsH3xl2ej8'; 
         const TG_CHAT_ID = '8123396062'; 
+
         document.getElementById('challengeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerText = 'ОТПРАВЛЯЮ...';
             const name = document.getElementById('leadName').value;
             const email = document.getElementById('leadEmail').value;
             const msg = document.getElementById('leadMessage').value;
+
+            btn.disabled = true;
+            btn.innerText = 'ОТПРАВЛЯЮ...';
+
             try {
-                await supabaseClient.from('leads').insert([{ name, contact: email, message: msg }]);
-                await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ chat_id: TG_CHAT_ID, text: `📩 Заявка: ${name}\nEmail: ${email}\nЗадача: ${msg}` })
+                    body: JSON.stringify({ 
+                        chat_id: TG_CHAT_ID, 
+                        text: `📩 Новая заявка:\nИмя: ${name}\nEmail: ${email}\nЗадача: ${msg}` 
+                    })
                 });
+
+                if (!tgRes.ok) throw new Error('Ошибка Telegram');
+                await supabaseClient.from('leads').insert([{ name, contact: email, message: msg }]);
+
                 alert('Спасибо! Ваша заявка принята.');
                 document.getElementById('challengeForm').reset();
             } catch (err) {
-                alert('Произошла ошибка, попробуйте еще раз.');
+                console.error(err);
+                alert('Не удалось отправить заявку. Попробуйте еще раз или напишите мне в ЛС.');
             } finally {
+                btn.disabled = false;
                 btn.innerText = '[ Отправить ]';
             }
         });
