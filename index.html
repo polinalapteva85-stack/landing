@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО (ПЕРЕХОД В VK) -->
+    <!-- ЭКРАН 3: ВИДЕО -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
         <div class="max-w-md mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Нейро-Пилот в действии</h2>
@@ -55,7 +55,6 @@
                class="block w-full py-8 bg-[#C5A059] text-black font-black text-xl rounded-2xl shadow-[0_0_30px_rgba(197,160,89,0.2)] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all text-center">
                 ▶ СМОТРЕТЬ В VK
             </a>
-            <p class="text-gray-500 mt-6 text-sm">Нажмите кнопку, чтобы сразу перейти к закрепленному видео</p>
         </div>
     </section>
 
@@ -64,7 +63,6 @@
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="text-2xl font-bold font-tech text-white mb-6">Представьте свой обычный день</h2>
             <p class="text-gray-400">😩 Проверить сообщения, ответить клиентам, написать пост, собрать информацию, не забыть про задачи — всё это отнимает часы.</p>
-            <p class="text-[#C5A059] mt-6">Теперь представьте, что часть этой работы выполняется автоматически.</p>
         </div>
     </section>
 
@@ -112,12 +110,19 @@
     <section id="challenge" class="py-16 px-4 md:px-6 bg-[#080C16]">
         <div class="max-w-lg mx-auto space-y-8">
             <h2 class="text-2xl md:text-3xl font-bold font-tech text-white text-center">Автоматизируем задачи</h2>
-            <form id="challengeForm" class="space-y-4">
-                <input type="text" id="leadName" placeholder="Ваше имя" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
-                <input type="email" id="leadEmail" placeholder="Ваш Email" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
-                <textarea id="leadMessage" placeholder="Кратко опишите задачу" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded h-32 focus:border-[#C5A059] outline-none"></textarea>
-                <button type="submit" id="submitBtn" class="w-full py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest rounded transition-all hover:bg-white">[ Отправить ]</button>
-            </form>
+            <div id="formContainer">
+                <form id="challengeForm" class="space-y-4">
+                    <input type="text" id="leadName" placeholder="Ваше имя" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
+                    <input type="email" id="leadEmail" placeholder="Ваш Email" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded focus:border-[#C5A059] outline-none">
+                    <textarea id="leadMessage" placeholder="Кратко опишите задачу" required class="w-full p-4 bg-[#050811] border border-gray-800 text-white rounded h-32 focus:border-[#C5A059] outline-none"></textarea>
+                    <button type="submit" id="submitBtn" class="w-full py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest rounded transition-all hover:bg-white">[ Отправить ]</button>
+                </form>
+            </div>
+            <!-- Скрытая кнопка для перехода -->
+            <div id="successBtn" class="hidden text-center">
+                <p class="text-[#C5A059] mb-4">Заявка принята! Переходите в мой Telegram:</p>
+                <a href="https://t.me/ВАШ_НИК_ЗДЕСЬ" target="_blank" class="inline-block px-8 py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest rounded hover:bg-white transition-all">НАПИСАТЬ В TELEGRAM</a>
+            </div>
         </div>
     </section>
 
@@ -137,18 +142,13 @@
             btn.innerText = 'ОТПРАВЛЯЮ...';
 
             try {
-                // 1. Сначала в Supabase
                 await supabaseClient.from('leads').insert([{ name, contact: email, message: msg }]);
                 
-                // 2. Уведомление
-                alert('Заявка принята! Сейчас перенаправляю вас в мой Telegram для связи.');
-                window.location.href = 'https://t.me/your_username'; // ВСТАВЬТЕ СВОЙ ТЕЛЕГРАМ
-                
-                document.getElementById('challengeForm').reset();
+                document.getElementById('challengeForm').classList.add('hidden');
+                document.getElementById('successBtn').classList.remove('hidden');
             } catch (err) {
                 console.error(err);
-                alert('Сбой. Напишите мне напрямую в VK.');
-            } finally {
+                alert('Технический сбой. Напишите мне напрямую в VK.');
                 btn.disabled = false;
                 btn.innerText = '[ Отправить ]';
             }
