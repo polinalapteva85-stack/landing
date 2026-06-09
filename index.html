@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО (ПЕРЕХОД В ЗАКРЕП) -->
+    <!-- ЭКРАН 3: ВИДЕО (ПЕРЕХОД В VK) -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
         <div class="max-w-md mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Нейро-Пилот в действии</h2>
@@ -138,24 +138,17 @@
             btn.disabled = true;
             btn.innerText = 'ОТПРАВЛЯЮ...';
 
+            const text = `📩 Заявка:\nИмя: ${name}\nEmail: ${email}\nЗадача: ${msg}`;
+            const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(text)}`;
+
             try {
-                const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ 
-                        chat_id: TG_CHAT_ID, 
-                        text: `📩 Новая заявка:\nИмя: ${name}\nEmail: ${email}\nЗадача: ${msg}` 
-                    })
-                });
-
-                if (!tgRes.ok) throw new Error('Ошибка Telegram');
+                await fetch(url);
                 await supabaseClient.from('leads').insert([{ name, contact: email, message: msg }]);
-
-                alert('Спасибо! Ваша заявка принята.');
+                alert('Спасибо! Ваша заявка успешно отправлена.');
                 document.getElementById('challengeForm').reset();
             } catch (err) {
                 console.error(err);
-                alert('Не удалось отправить заявку. Попробуйте еще раз или напишите мне в ЛС.');
+                alert('Технический сбой. Пожалуйста, напишите мне напрямую в личные сообщения VK.');
             } finally {
                 btn.disabled = false;
                 btn.innerText = '[ Отправить ]';
