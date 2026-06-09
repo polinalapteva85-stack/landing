@@ -47,15 +47,22 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО (ПРИНУДИТЕЛЬНОЕ ОТКРЫТИЕ) -->
+    <!-- ЭКРАН 3: ВИДЕО (МАКСИМАЛЬНО НАДЕЖНО) -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
         <div class="max-w-md mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Как это работает?</h2>
+            
+            <!-- Кнопка -->
             <button onclick="window.open('https://vk.com/video-180882670_456239159', '_blank')" 
                class="block w-full py-6 bg-[#C5A059] text-black font-black text-xl rounded-xl shadow-[0_0_20px_rgba(197,160,89,0.3)] hover:bg-white transition-all text-center">
                 ▶ СМОТРЕТЬ ВИДЕО
             </button>
-            <p class="text-gray-500 mt-4 text-xs">Если не открывается сразу — разрешите всплывающие окна в браузере</p>
+            
+            <!-- Дублирующая текстовая ссылка (самый надежный метод) -->
+            <a href="https://vk.com/video-180882670_456239159" target="_blank" 
+               class="inline-block mt-6 text-[#C5A059] underline text-sm hover:text-white transition-colors">
+               Открыть видео напрямую в VK
+            </a>
         </div>
     </section>
 
