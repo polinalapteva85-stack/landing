@@ -14,7 +14,7 @@
 </head>
 <body class="antialiased selection:bg-[#C5A059] selection:text-black overflow-x-hidden">
 
-    <!-- ЭКРАН 1: ГЛАВНЫЙ -->
+    <!-- ГЛАВНЫЙ ЭКРАН -->
     <header class="min-h-screen flex items-center px-4 md:px-6 relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#1E1B18] via-[#050811] to-[#050811]">
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center py-12">
             <div class="space-y-6 text-center md:text-left">
@@ -47,21 +47,15 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 3: ВИДЕО -->
+    <!-- ЭКРАН 3: ВИДЕО (ПРИНУДИТЕЛЬНОЕ ОТКРЫТИЕ) -->
     <section class="py-16 px-4 md:px-6 bg-[#050811]">
-        <div class="max-w-xl mx-auto text-center">
+        <div class="max-w-md mx-auto text-center">
             <h2 class="text-2xl font-tech text-white mb-8">Как это работает?</h2>
-            <a href="https://vk.com/video-180882670_456239159" target="_blank" class="block group relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-800 hover:border-[#C5A059] transition-all">
-                <div class="absolute inset-0 bg-gray-900 flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000" class="w-full h-full object-cover opacity-50" alt="Видео">
-                </div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-20 h-20 bg-[#C5A059] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                </div>
-            </a>
-            <p class="text-gray-500 mt-4 text-xs">Нажмите на область видео, чтобы открыть его в VK</p>
+            <button onclick="window.open('https://vk.com/video-180882670_456239159', '_blank')" 
+               class="block w-full py-6 bg-[#C5A059] text-black font-black text-xl rounded-xl shadow-[0_0_20px_rgba(197,160,89,0.3)] hover:bg-white transition-all text-center">
+                ▶ СМОТРЕТЬ ВИДЕО
+            </button>
+            <p class="text-gray-500 mt-4 text-xs">Если не открывается сразу — разрешите всплывающие окна в браузере</p>
         </div>
     </section>
 
@@ -150,7 +144,7 @@
                 alert('Спасибо! Ваша заявка принята.');
                 document.getElementById('challengeForm').reset();
             } catch (err) {
-                alert('Произошла ошибка, пожалуйста, попробуйте еще раз.');
+                alert('Произошла ошибка, попробуйте еще раз.');
             } finally {
                 btn.innerText = '[ Отправить ]';
             }
