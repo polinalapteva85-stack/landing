@@ -396,16 +396,22 @@
         document.getElementById('tgFallbackLink').href = draft;
 
         let delivered = false;
+        // Telegram доступен не у всех провайдеров: ждём 8 секунд и показываем запасной путь.
+        const stopWaiting = new AbortController();
+        const timer = setTimeout(() => stopWaiting.abort(), 8000);
         try {
             const res = await fetch('https://api.telegram.org/bot' + TG_BOT + '/sendMessage', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: TG_CHAT, text: text })
+                body: JSON.stringify({ chat_id: TG_CHAT, text: text }),
+                signal: stopWaiting.signal
             });
             const data = await res.json();
             delivered = res.ok && data.ok === true;
         } catch (err) {
             delivered = false;
+        } finally {
+            clearTimeout(timer);
         }
 
         document.getElementById('formContainer').classList.add('hidden');
