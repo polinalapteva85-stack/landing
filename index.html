@@ -370,9 +370,9 @@
 </footer>
 
 <script>
-    // Заявки уходят напрямую в Telegram Полине. Без баз и посредников.
-    const TG_BOT = '8552287631:AAHuhBzJGhzlIazU1dwukfDG9NsH3xl2ej8';
-    const TG_CHAT = '8123396062';
+    // Заявки уходят через почтальона на Cloudflare, он передаёт их в Telegram Полине.
+    // Ключ от бота лежит в настройках почтальона, на этой странице его нет.
+    const RELAY = 'https://zayavki.neuroatelie.workers.dev';
     const TG_USER = 'Polina08198';
 
     document.getElementById('challengeForm').addEventListener('submit', async (e) => {
@@ -385,10 +385,6 @@
         btn.disabled = true;
         btn.innerText = 'Отправляю...';
 
-        const text = 'Заявка с лендинга\n\nИмя: ' + name +
-                     '\nКонтакт: ' + contact +
-                     '\nЗадача: ' + message;
-
         // Запасной путь: если отправка не удалась, человек допишет сам — текст уже готов.
         const draft = 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(
             'Здравствуйте! Заявка с сайта.\nИмя: ' + name + '\nЗадача: ' + message
@@ -396,14 +392,14 @@
         document.getElementById('tgFallbackLink').href = draft;
 
         let delivered = false;
-        // Telegram доступен не у всех провайдеров: ждём 8 секунд и показываем запасной путь.
+        // Ждём ответа 10 секунд, дальше показываем запасной путь вместо зависшей кнопки.
         const stopWaiting = new AbortController();
-        const timer = setTimeout(() => stopWaiting.abort(), 8000);
+        const timer = setTimeout(() => stopWaiting.abort(), 10000);
         try {
-            const res = await fetch('https://api.telegram.org/bot' + TG_BOT + '/sendMessage', {
+            const res = await fetch(RELAY, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: TG_CHAT, text: text }),
+                body: JSON.stringify({ name: name, contact: contact, message: message }),
                 signal: stopWaiting.signal
             });
             const data = await res.json();
