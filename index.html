@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neuro-Pilot // Хакни рутину</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #050811; color: #E2E8F0; overflow-x: hidden; }
@@ -116,36 +115,64 @@
                 </form>
             </div>
             <div id="successBtn" class="hidden text-center py-6">
-                <p class="text-[#C5A059] mb-4 font-bold">Заявка принята!</p>
-                <button onclick="openTelegram()" class="w-full py-4 bg-[#C5A059] text-black font-bold uppercase rounded">Написать в Telegram</button>
+                <p class="text-[#C5A059] mb-4 font-bold">Заявка принята! Отвечу в течение дня.</p>
+                <a id="tgSuccessLink" href="https://t.me/Polina08198" target="_blank" rel="noopener" class="block w-full py-4 bg-[#C5A059] text-black font-bold uppercase rounded">Написать в Telegram</a>
+            </div>
+            <div id="failBox" class="hidden text-center py-6">
+                <p class="text-white mb-2 font-bold">Заявка не отправилась</p>
+                <p class="text-gray-400 text-sm mb-4">Похоже, связь прервалась. Нажмите кнопку — текст заявки уже готов, останется отправить.</p>
+                <a id="tgFallbackLink" href="https://t.me/Polina08198" target="_blank" rel="noopener" class="block w-full py-4 bg-[#C5A059] text-black font-bold uppercase rounded">Написать мне в Telegram</a>
             </div>
         </div>
     </section>
 
     <script>
-        const supabaseClient = supabase.createClient('https://tyummzgrdfxpfzvdjwua.supabase.co', 'sb_publishable_EevF-Aew_WxPDb_zEXBtwQ_PkGLWx8m');
-        function openTelegram() {
-            const user = 'Polina08198';
-            window.location.href = 'tg://resolve?domain=' + user;
-            setTimeout(() => window.open('https://t.me/' + user, '_blank'), 2000);
-        }
+        // Заявки уходят напрямую в Telegram Полине. Без баз и посредников.
+        const TG_BOT = '8552287631:AAHuhBzJGhzlIazU1dwukfDG9NsH3xl2ej8';
+        const TG_CHAT = '8123396062';
+        const TG_USER = 'Polina08198';
+
         document.getElementById('challengeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
+            const name = document.getElementById('leadName').value.trim();
+            const contact = document.getElementById('leadEmail').value.trim();
+            const message = document.getElementById('leadMessage').value.trim();
+
             btn.disabled = true;
             btn.innerText = 'ОТПРАВЛЯЮ...';
+
+            const text = 'Заявка с лендинга\n\nИмя: ' + name +
+                         '\nКонтакт: ' + contact +
+                         '\nЗадача: ' + message;
+
+            // Запасной путь: если отправка не удалась, человек допишет сам — текст уже готов.
+            const draft = 'https://t.me/' + TG_USER + '?text=' + encodeURIComponent(
+                'Здравствуйте! Заявка с сайта.\nИмя: ' + name + '\nЗадача: ' + message
+            );
+            document.getElementById('tgFallbackLink').href = draft;
+
+            let delivered = false;
             try {
-                await supabaseClient.from('leads').insert([{ 
-                    name: document.getElementById('leadName').value, 
-                    contact: document.getElementById('leadEmail').value, 
-                    message: document.getElementById('leadMessage').value 
-                }]);
-                document.getElementById('formContainer').classList.add('hidden');
-                document.getElementById('successBtn').classList.remove('hidden');
+                const res = await fetch('https://api.telegram.org/bot' + TG_BOT + '/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TG_CHAT, text: text })
+                });
+                const data = await res.json();
+                delivered = res.ok && data.ok === true;
             } catch (err) {
-                alert('Сбой. Напишите мне напрямую в VK.');
-                btn.disabled = false;
-                btn.innerText = 'Отправить';
+                delivered = false;
+            }
+
+            document.getElementById('formContainer').classList.add('hidden');
+            if (delivered) {
+                document.getElementById('successBtn').classList.remove('hidden');
+                if (window.ym) ym(109746780, 'reachGoal', 'lead_sent');
+            } else {
+                // Не показываем "принято", когда заявка никуда не ушла.
+                document.getElementById('failBox').classList.remove('hidden');
+                if (window.ym) ym(109746780, 'reachGoal', 'lead_failed');
             }
         });
     </script>
